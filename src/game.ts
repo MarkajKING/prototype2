@@ -7,7 +7,7 @@ export class Game {
     private pixiWidth = 800
     private pixiHeight = 500
     
-    private _pixi: PIXI.Application
+    public _pixi: PIXI.Application
     private loader: PIXI.Loader
     private brandaan: Brandaan
 
