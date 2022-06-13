@@ -4,15 +4,17 @@ import { Game } from './game'
 
 export class Brandaan extends PIXI.AnimatedSprite {
     private game: Game
+    private _pixi: PIXI.Application
     private xSpeed: number = 0
     private ySpeed: number = 0
     private frames: PIXI.Texture[][] = []
     private previousFrame: number = -1
 
-    constructor(game: Game, textures: PIXI.Texture[][], x: number, y: number) {
+    constructor(game: Game, textures: PIXI.Texture[][], x: number, y: number, pixi: PIXI.Application) {
         super(textures[0])
         this.game = game
         this.frames = textures
+        this._pixi = pixi
 
         this.x = x
         this.y = y
@@ -22,7 +24,7 @@ export class Brandaan extends PIXI.AnimatedSprite {
         this.loop = true
         this.play();
 
-        this.game.pixi.stage.addChild(this);
+        this.game._pixi.stage.addChild(this);
 
         window.addEventListener("keydown", (e: KeyboardEvent) => this.onKeyDown(e))
         window.addEventListener("keyup", (e: KeyboardEvent) => this.onKeyUp(e))
@@ -78,19 +80,11 @@ export class Brandaan extends PIXI.AnimatedSprite {
     }
 
     private setFrames(frame: number) {
-        console.log(this.previousFrame)
         if (this.previousFrame != frame) {
-
-            console.log("set frames");
-
             this.textures = this.frames[frame]
-
             this.loop = true
-
             this.play()
-
             this.previousFrame = frame
-
         }
 
     }
